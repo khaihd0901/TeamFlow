@@ -1,10 +1,10 @@
 import React from 'react'
-import { useAuthStore } from '../stores/authStore'
-
+import BoardBar from '../components/BoardBar'
 const HomePage = () => {
-  const {user} = useAuthStore();
   return (
-    <div>HomePage: {user?.name}</div>
+    <div>
+      <BoardBar/>
+    </div>
   )
 }
 

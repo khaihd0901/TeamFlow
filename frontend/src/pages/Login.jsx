@@ -6,7 +6,7 @@ import { useAuthStore } from "../stores/authStore";
 const Login = () => {
   
 const navigate = useNavigate();
-  const { authLogin, success, loading } = useAuthStore();
+  const { authLogin, loading } = useAuthStore();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -23,7 +23,6 @@ const navigate = useNavigate();
       navigate("/");
     },
   });
-  console.log(success)
 
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-gray-100">

@@ -100,7 +100,7 @@ export const refreshToken = async(req,res)=>{
             return res.status(400).json({message: "No refresh token found"});
         }
         const session = await Session.findOne({refreshToken: token});
-        if(session.expiresAt < new Date()){
+        if(session?.expiresAt < new Date()){
             return res.status(403).json({message: "Invalid or expired refresh token"});
         }
         const accessToken = jwt.sign({userId: session.userId}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: ACCESS_TOKEN_TTL})
