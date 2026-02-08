@@ -1,0 +1,305 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "FlowTeam",
+    "version": "1.0.0",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5001/api"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "REGISTER",
+        "responses": {},
+        "tags": ["Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "email": "user123@gmail.com",
+                "password": "user123",
+                "confirmPassword": "user123",
+                "name": "Lai Quang User123",
+                "phone": "0237421812"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "LOGIN",
+        "responses": {},
+        "tags": ["Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "email": "user123@gmail.com",
+                "password": "user123"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "summary": "LOGOUT",
+        "responses": {},
+        "tags": ["Auth"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/auth/refresh-token": {
+      "post": {
+        "summary": "REFRSH TOKEN",
+        "responses": {},
+        "tags": ["Auth"]
+      }
+    },
+    "/user/me": {
+      "get": {
+        "summary": "GET ME",
+        "responses": {},
+        "tags": ["User"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/friend/requests": {
+      "post": {
+        "summary": "ADD FRIEND",
+        "responses": {},
+        "tags": ["User"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "to": "698238046cbd0a65fd22c56e",
+                "message": "Hello, would you like to be my friend?"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "GET ALL FRIENDS",
+        "responses": {},
+        "tags": ["User"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/friend/requests/{requestId}/accept": {
+      "post": {
+        "summary": "ACCEPT REQUEST ADD FRIEND",
+        "responses": {},
+        "tags": ["User"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "requestId",
+          "in": "path",
+          "required": true,
+          "deprecated": false,
+          "schema": {},
+          "example": "69829f8fe108a94e33b96851"
+        }
+      ]
+    },
+    "/friend/requests/{requestId}/decline": {
+      "post": {
+        "summary": "DECLINE REQUEST ADD FRIEND Copy",
+        "responses": {},
+        "tags": ["User"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "requestId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "example": "6982a11c28012e4fa440d11f"
+        }
+      ]
+    },
+    "/friend/": {
+      "get": {
+        "summary": "GET ALL REQUEST FRIEND",
+        "responses": {},
+        "tags": ["User"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/message/private": {
+      "post": {
+        "summary": "SEND PRIVATE MESSAGE",
+        "responses": {},
+        "tags": ["User"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "recipientId": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "recipientId": "6982377bd5520087138c6221",
+                "content": "Hello, how are you?"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conversation": {
+      "post": {
+        "summary": "CRETAE CONVERSATION",
+        "responses": {},
+        "tags": ["User"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "type": "group",
+                "name": "Group test 2",
+                "memberIds": [
+                  "6982377bd5520087138c6221",
+                  "698238046cbd0a65fd22c56e"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "GET CONVERSATION",
+        "responses": {},
+        "tags": ["User"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/message/group": {
+      "post": {
+        "summary": "SEND GROUP MESSAGE",
+        "responses": {},
+        "tags": ["User"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "conversationId": "6982f296036523e2b3f95b4f",
+                "content": "hello everyone"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [{ "bearerAuth": [] }]
+}
