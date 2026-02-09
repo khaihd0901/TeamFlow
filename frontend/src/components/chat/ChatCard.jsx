@@ -12,7 +12,6 @@ const ChatCard = ({
   leftSection,
   subTitle,
 }) => {
-  console.log(conversationId);
   return (
     <Card
       key={conversationId}

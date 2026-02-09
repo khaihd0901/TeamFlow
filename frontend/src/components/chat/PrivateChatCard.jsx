@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import ChatCard from "./ChatCard";
 import { useAuthStore } from "@/stores/authStore";
 import { useChatStore } from "@/stores/chatStore";
 import { cn } from "@/lib/utils";
+import UnreadCountBadge from "./UnreadCountBadge";
+import UserAvatar from "./UserAvatar";
+import StatusBadge from "./StatusBadge";
+import { ChatContext } from "@/lib/ChatContext";
 
 const PrivateChatCard = ({ conversation }) => {
+    const { setOpenChatBox } = useContext(ChatContext);
+  
   const { user } = useAuthStore();
-  const { activeConversationId, setActiveConversationId, messages } =
+  const { activeConversationId, setActiveConversationId, messages,chatGetAllMessages } =
     useChatStore();
 
   if (!user) return null;
@@ -20,8 +26,9 @@ const PrivateChatCard = ({ conversation }) => {
 
   const handleSelectConversation = async (id) => {
     setActiveConversationId(id);
+    setOpenChatBox(prev => !prev)
     if (!messages[id]) {
-      // todo: fetch message
+      await chatGetAllMessages(id);
     }
   };
   return (
@@ -40,8 +47,8 @@ const PrivateChatCard = ({ conversation }) => {
         <>
           <UserAvatar
             type="sidebar"
-            name={otherUser.displayName ?? ""}
-            avatarUrl={otherUser.avatarUrl ?? undefined}
+            name={otherUser.name ?? ""}
+            avatarUrl={otherUser?.avatarUrl ?? undefined}
           />
           <StatusBadge
           // status={

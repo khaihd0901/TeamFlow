@@ -1,6 +1,6 @@
 import Conversation from '../models/Conversation.js';
 import Message from '../models/Message.js';
-import {updateConversationAfterCreateMessage} from '../Utils/messageHelper.js';
+import {updateConversationAfterCreateMessage} from '../utils/messageHelper.js';
 
 export const sendPrivateMessage = async(req,res)=>{
     try{

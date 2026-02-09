@@ -1,13 +1,16 @@
 import { useAuthStore } from "@/stores/authStore";
 import { useChatStore } from "@/stores/chatStore";
-import React from "react";
+import React, { useContext } from "react";
 import ChatCard from "./ChatCard";
 import UnreadCountBadge from "./UnreadCountBadge";
 import GroupChatAvatar from "./GroupChatAvatar";
+import ChatBox from "./ChatBox";
+import { ChatContext } from "@/lib/ChatContext";
 
 const GroupChatCard = ({ conversation }) => {
+  const { setOpenChatBox } = useContext(ChatContext);
   const { user } = useAuthStore();
-  const { activeConversationId, setActiveConversationId, messages } =
+  const { activeConversationId, setActiveConversationId, messages,chatGetAllMessages } =
     useChatStore();
 
   if (!user) return null;
@@ -16,11 +19,13 @@ const GroupChatCard = ({ conversation }) => {
   const name = conversation.group[0]?.name || "";
   const handleSelectConversation = async (id) => {
     setActiveConversationId(id);
+     setOpenChatBox(prev => !prev);
     if (!messages[id]) {
-      // todo: fetch message
+      await chatGetAllMessages(id);
     }
   };
   return (
+    <>
     <ChatCard
       conversationId={conversation._id}
       name={name}
@@ -45,6 +50,7 @@ const GroupChatCard = ({ conversation }) => {
         </p>
       }
     />
+    </>
   );
 };
 

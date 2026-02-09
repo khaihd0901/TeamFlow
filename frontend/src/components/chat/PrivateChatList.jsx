@@ -3,7 +3,6 @@ import PrivateChatCard from "./PrivateChatCard";
 
 const PrivateChatList = () => {
   const { conversations } = useChatStore();
-
   if (!conversations) return;
 
   const privateChats = conversations.filter(

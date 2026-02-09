@@ -90,7 +90,7 @@ export const getConversations = async(req,res) =>{
                 avatarUrl: p.userId?.avatarUrl ?? null,
                 joinedAt: p.joinedAt
             }))
-
+            console.log(participants)
             return {
                 ...conversation.toObject(),
                 unReadCounts: conversation.unReadCounts || {},
