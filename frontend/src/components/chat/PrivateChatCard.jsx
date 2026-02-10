@@ -7,13 +7,19 @@ import UnreadCountBadge from "./UnreadCountBadge";
 import UserAvatar from "./UserAvatar";
 import StatusBadge from "./StatusBadge";
 import { ChatContext } from "@/lib/ChatContext";
+import { useSocketStore } from "@/stores/socketStore";
 
 const PrivateChatCard = ({ conversation }) => {
-    const { setOpenChatBox } = useContext(ChatContext);
-  
+  const { setOpenChatBox } = useContext(ChatContext);
+
   const { user } = useAuthStore();
-  const { activeConversationId, setActiveConversationId, messages,chatGetAllMessages } =
-    useChatStore();
+  const {
+    activeConversationId,
+    setActiveConversationId,
+    messages,
+    chatGetAllMessages,
+  } = useChatStore();
+  const { onlineUsers } = useSocketStore();
 
   if (!user) return null;
 
@@ -26,7 +32,7 @@ const PrivateChatCard = ({ conversation }) => {
 
   const handleSelectConversation = async (id) => {
     setActiveConversationId(id);
-    setOpenChatBox(prev => !prev)
+    setOpenChatBox((prev) => !prev);
     if (!messages[id]) {
       await chatGetAllMessages(id);
     }
@@ -51,9 +57,9 @@ const PrivateChatCard = ({ conversation }) => {
             avatarUrl={otherUser?.avatarUrl ?? undefined}
           />
           <StatusBadge
-          // status={
-          //   onlineUsers.includes(otherUser?._id ?? "") ? "online" : "offline"
-          // }
+            status={
+              onlineUsers.includes(otherUser?._id || "") ? "online" : "offline"
+            }
           />
           {unreadCount > 0 && <UnreadCountBadge unreadCount={unreadCount} />}
         </>

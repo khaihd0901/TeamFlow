@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/sidebar";
 import NewGroupChat from "../chat/NewGroupChat";
 import AddFriend from "../chat/AddFriend";
-import { useAuthStore } from "@/stores/authStore";
 import PrivateChatList from "../chat/PrivateChatList";
 import GroupChatList from "../chat/GroupChatList";
 
@@ -42,7 +41,6 @@ const data = {
 };
 
 export function AppSidebar({ ...props }) {
-  const { user } = useAuthStore();
   return (
     <Sidebar
       className="top-(--header-height) h-[calc(100svh-var(--header-height))]!"
@@ -100,12 +98,11 @@ export function AppSidebar({ ...props }) {
             <PrivateChatList />
           </SidebarGroup>
         </SidebarGroup>
-        {/* <NavMain items={data.navMain} /> */}
         <NavProjects projects={data.projects} />
       </SidebarContent>
-      <SidebarFooter>
+      {/* <SidebarFooter>
         <NavUser user={user} />
-      </SidebarFooter>
+      </SidebarFooter> */}
     </Sidebar>
   );
 }

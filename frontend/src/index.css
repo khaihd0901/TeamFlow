@@ -3,6 +3,7 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -48,6 +49,10 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
+
+  /* Status colors */
+  --online: 140 100% 50%;
+  --offline: 0 0% 70%;
 }
 
 /* a {
@@ -89,12 +94,14 @@ button:focus-visible {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
+  background: #000;
 } */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
+
   button {
     background-color: #f9f9f9;
     cursor: pointer;
@@ -180,7 +187,17 @@ button:focus-visible {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+@layer components {
+    .status-online {
+    @apply bg-[hsl(var(--online))] shadow-[0_0_8px_hsl(var(--online)/0.5)];
+  }
+
+  .status-offline {
+    @apply bg-[hsl(var(--offline))];
   }
 }

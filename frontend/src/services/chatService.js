@@ -1,6 +1,6 @@
 import api from "@/lib/api";
 
-const pageLimit = 50;
+const pageLimit = 20;
 const chatGetConversations = async () => {
   const res = await api.get(`/conversation`);
   return res.data;
@@ -24,10 +24,16 @@ const chatSendGroupMessage = async (conversationId, content) => {
   const res = await api.post(`/message/group`, { conversationId,content });
   return res.data.message;
 };
+
+const chatMarkAsSeen = async (id) =>{
+  const res = await api.patch(`/conversation/${id}/seen`);
+  return res.data
+}
 const chatService = {
   chatGetConversations,
   chatGetAllMessages,
   chatSendPrivateMessage,
   chatSendGroupMessage,
+  chatMarkAsSeen,
 };
 export default chatService;

@@ -12,10 +12,10 @@ import friendRoute from './routes/friendRoute.js';
 import messageRoute from './routes/messageRoute.js';
 import conversationRoute from './routes/conversationRoute.js';
 import { protectedRoute } from "./middlewares/authMiddleWare.js";
-
+import {app,io,server} from '../src/socket/index.js'
 dotenv.config();
 
-const app = express();
+
 const PORT = process.env.PORT || 5000;
 //MIDDLEWARES
 app.use(express.json());
@@ -41,7 +41,7 @@ app.use(`/api/conversation`, conversationRoute)
 
 //START THE SERVER
 connectDB().then(() => {
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log(`server running on ${PORT}`);
   });
 });

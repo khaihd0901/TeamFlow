@@ -5,27 +5,26 @@ import { Input } from "../ui/input";
 import { useChatStore } from "@/stores/chatStore";
 import { toast } from "sonner";
 const ChatBoxFooter = ({selectedConver}) => {
-  console.log("selectedConver", selectedConver)
   const {user} = useAuthStore();
   const [value, setValue] = useState("");
   const {chatSendPrivateMessage,chatSendGroupMessage} = useChatStore();
   if(!user) return
   const handleSendMessage = async ()=>{
     if(!value.trim()) return
+    const currentValue = value;
+    setValue("")
     try{
       if(selectedConver.type === 'private'){
         const participants = selectedConver.participants;
         const otherUser = participants.filter((p) => p._id !== user._id)[0]
-        await chatSendPrivateMessage(otherUser._id,value)
+        await chatSendPrivateMessage(otherUser._id,currentValue)
       }else{
-        await chatSendGroupMessage(selectedConver._id, value)
+        await chatSendGroupMessage(selectedConver._id, currentValue)
       }
     }catch(err){
       console.log(err)
       toast.error("error when send message !!!")
-    }finally{
-        setValue("")
-      }
+    }
   }
   const handleKeyPress = (e) =>{
     if(e.key === "Enter"){

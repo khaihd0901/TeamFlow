@@ -11,10 +11,10 @@ const ChatMessageItem = ({
   selectedConver,
   lastMessageStatus,
 }) => {
-  const prev = messages[index - 1];
+  const prev = index + 1 < messages.length ? messages[index + 1] : undefined;
   const isGroupBreak =
     index === 0 ||
-    messages.senderId != prev.senderId ||
+    message.senderId != prev?.senderId ||
     new Date(message.createdAt).getTime() -
       new Date(prev?.createdAt || 0).getTime() >
       300000;
